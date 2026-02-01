@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Golden Pup 💖</title>
+<style>
+body {
+  margin: 0; padding: 0; height: 100vh;
+  background: linear-gradient(135deg,#ffafd1,#ffc1de);
+  font-family: "Arial Rounded MT Bold", Arial, sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card container */
+.card {
+  background: #fff5f9;
+  width: 90%; max-width: 380px;
+  padding: 30px 20px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 2;
+}
+
+/* Dog GIF */
+.dog-gif {
+  width: 160px; height: auto; margin-bottom: 15px;
+}
+
+/* Buttons */
+button {
+  width: 100%; font-size: 20px; padding: 16px;
+  border-radius: 40px; border: none; cursor: pointer; margin: 10px 0;
+}
+#yesBtn { background: #ff6cb3; color:white; }
+#noBtn {
+  background:#ffe6ed; color:#c71585;
+  position:absolute; width:140px; padding:14px; border-radius:40px; z-index:3;
+}
+
+/* Heart shapes */
+.heart {
+  position: absolute;
+  width: 15px; height: 15px;
+  background: white;
+  transform: rotate(-45deg);
+  animation: float 6s linear infinite;
+}
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 15px; height: 15px;
+  background: white;
+  border-radius: 50%;
+}
+.heart::before { top: -7.5px; left: 0; }
+.heart::after { left: 7.5px; top: 0; }
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(-45deg) scale(0.6); opacity: 0; }
+  50% { opacity:1; }
+  100% { transform: translateY(-120vh) rotate(-45deg) scale(1); opacity:0; }
+}
+</style>
+</head>
+<body>
+
+<div class="card" style="text-align:center;">
+  <iframe src="https://tenor.com/embed/11824514057033619716"
+          width="300" height="300" frameborder="0" allowfullscreen>
+  </iframe>
+  <h1 id="title"></h1>
+  <p>
+    Will you be my Valentine? <br> <br>
+    I promise endless puppy love, warm cuddles with <br> 
+    lots of laughter and sweet memories!! 
+  </p>
+  <button id="yesBtn" onclick="yesClicked()">Yes 💗</button>
+</div>
+
+<button id="noBtn">No 😢</button>
+
+<script>
+const herName = "Sweetheart 💗";
+const yourName = "Akshat 💗";
+document.getElementById("title").innerText = `Hey ${herName},`;
+
+// Floating NO button
+const noBtn = document.getElementById("noBtn");
+let x = Math.random()*(window.innerWidth-150), y = Math.random()*(window.innerHeight-70), vx=1.4, vy=1.2;
+noBtn.style.left = x+"px"; noBtn.style.top = y+"px";
+
+function floatNo() {
+  x+=vx; y+=vy;
+  if(x<=0 || x>=window.innerWidth-150) vx*=-1;
+  if(y<=0 || y>=window.innerHeight-70) vy*=-1;
+  noBtn.style.left = x+"px"; noBtn.style.top = y+"px";
+  requestAnimationFrame(floatNo);
+}
+floatNo();
+
+function panicMove() {
+  x=Math.random()*(window.innerWidth-150);
+  y=Math.random()*(window.innerHeight-70);
+  vx=(Math.random()>0.5?1:-1)*(2 + Math.random()*2);
+  vy=(Math.random()>0.5?1:-1)*(2 + Math.random()*2);
+}
+noBtn.addEventListener("mouseover", panicMove);
+noBtn.addEventListener("touchstart", panicMove);
+noBtn.addEventListener("click", panicMove);
+
+// YES clicked
+function yesClicked() {
+  document.body.innerHTML = `
+    <div style="height:100vh;width:100%;display:flex;flex-direction:column;
+                justify-content:center;align-items:center;
+                background:linear-gradient(135deg,#ffafd1,#ffc1de);
+                font-family:Arial,sans-serif;text-align:center;padding:20px;">
+      <iframe src="https://tenor.com/embed/2124557923355771903"
+              width="300" height="300" frameborder="0" allowfullscreen
+              style="margin-bottom:15px;">
+      </iframe>
+      <h1 style="color:#c71585;font-size:32px;">THANK YOU, ${herName}!!</h1>
+      <p style="font-size:20px;color:#d1479f;">
+        I knew you couldn’t resist all this puppy charm 🐾💗<br>
+        Forever love from <b>${yourName}</b> 💗
+      </p>
+    </div>
+  `;
+  createHearts();
+}
+
+// Create floating white hearts
+function createHearts() {
+  for(let i=0;i<40;i++){
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.style.left = Math.random()*window.innerWidth+"px";
+    h.style.top = Math.random()*window.innerHeight+"px";
+    h.style.animationDuration = (4+Math.random()*4)+"s";
+    h.style.animationDelay = Math.random()*3+"s";
+    document.body.appendChild(h);
+  }
+}
+
+// Initial hearts on first screen
+createHearts();
+</script>
+
+</body>
+</html>
